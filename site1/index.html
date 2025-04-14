@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Discover a collection of intriguing and practical facts that might surprise you and prove handy in everyday conversations.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Useful Facts</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="icon.png">
+</head>
+<body>
+    <div class="container">
+        <h1>The Very Useful Facts!</h1>
+        <div class="fact-box">
+            <h2>Did You Know?</h2>
+            <p id="fact">Click the button to see a fact!</p>
+            <button onclick="showFact()" id="factButton">Show Fact</button>
+        </div>
+    </div>
+    <div class="container facts" id="factsWindow">
+        <div class="header">
+            <h3 id="btn" onclick="show()">Show acquired facts</h3>
+        </div>
+        <div class="list" id="list">
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

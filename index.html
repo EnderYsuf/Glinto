@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Glinto is an innovative search engine designed to deliver relevant and reliable results quickly. Discover a seamless search experience with precise answers, tailored to your needs.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="eN_U5v5t7OMFI66nyrplcYrnXV4r-QL-QBBuXCGHNXA" />
+    <title>Glinto</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="icon.png">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <div class="search-container">
+                <img src="logo.png" width="100px">
+                <form id="searchForm">
+                    <input type="text" id="searchBox" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div id="results">
+                <div class="main" id="mainPage">
+                    <button onclick="luck()">Feeling lucky?</button>
+                    <button onclick="displayAll()">All websites</button>
+                </div>
+            </div>
+            <div id="pagination"></div>
+        </div>
+        <footer>
+            <p>Glinto is a fake search engine and contains only pre-written websites. Any coincidence is accidental</p>
+            <p>:)</p>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
