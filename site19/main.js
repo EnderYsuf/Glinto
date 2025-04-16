@@ -47,7 +47,37 @@ const yAxisLabels = [
   { label: "Radiance", title: "Light Emission" },
   { label: "Zero Point", title: "Quantum Vacuum State" },
   { label: "Cascade", title: "Sequential Process" },
-  { label: "Singularity", title: "Gravitational Collapse" }
+  { label: "Singularity", title: "Gravitational Collapse" },
+  { label: "Resonance", title: "Amplified Vibration" },
+  { label: "Entropy", title: "Measure of Disorder" },
+  { label: "Node", title: "Connection Point" },
+  { label: "Phase Shift", title: "Transition in Wave Cycle" },
+  { label: "Displacement", title: "Change in Position" },
+  { label: "Harmonic", title: "Component Frequency" },
+  { label: "Impulse Response", title: "Reaction to Stimulus" },
+  { label: "Singularity Point", title: "Infinite Density Location" },
+  { label: "Radiation", title: "Energy Emission" },
+  { label: "Distortion", title: "Altered Signal" },
+  { label: "Polarization", title: "Wave Orientation" },
+  { label: "Compression", title: "Reduction in Volume" },
+  { label: "Refraction", title: "Change in Wave Direction" },
+  { label: "Interstice", title: "Small Space Between" },
+  { label: "Anomaly", title: "Irregular Event" },
+  { label: "Echo Chamber", title: "Reinforced Signal Loop" },
+  { label: "Field", title: "Influence Region" },
+  { label: "Wavelength", title: "Distance Between Peaks" },
+  { label: "Transience", title: "Short-lived Nature" },
+  { label: "Friction", title: "Resisting Force" },
+  { label: "Threshold", title: "Activation Limit" },
+  { label: "Conduction", title: "Energy Transmission" },
+  { label: "Absorption", title: "Energy Intake" },
+  { label: "Disturbance", title: "Temporary Disruption" },
+  { label: "Reflection", title: "Wave Bounce-back" },
+  { label: "Attractor", title: "State Toward Which System Evolves" },
+  { label: "Permeability", title: "Measure of Passage" },
+  { label: "Torque", title: "Rotational Force" },
+  { label: "Phase Lock", title: "Synchronized Oscillation" },
+  { label: "Superposition", title: "Combined States" }
 ];
 
 const things = [
@@ -61,71 +91,91 @@ const things = [
   "glove", "water bottle", "mug", "vase", "ball", "sweater", "fridge", "microwave", "television", 
   "apple", "soccer ball", "telescope", "t-shirt", "backpack", "bottle", "glasses", "rug", "shoes", 
   "remote", "sunglasses", "watch", "coffee table", "lawnmower", "blanket", "toaster", "painting", 
-  "cup", "earphones", "backpack", "socks", "cookie", "hat", "bracelet", "skirt", "coat", "broom"
+  "cup", "earphones", "backpack", "socks", "cookie", "hat", "bracelet", "skirt", "coat", "broom",
+  "drum", "pencil", "notebook", "mirror", "ladder", "helmet", "binoculars", "tent", "puzzle", "glue",
+  "chalk", "mat", "radio", "projector", "pillow", "quilt", "slippers", "spoon", "fork", "knife",
+  "napkin", "plush toy", "marble", "origami", "drone", "fireplace", "snow globe", "calendar", "bucket", "crayon",
+  "measuring tape", "compass", "paintbrush", "pan", "bowl", "whistle", "net", "hammock", "magnet", "screwdriver",
+  "plunger", "clipboard", "scissors", "flashlight", "thermometer", "keychain", "poster", "whiteboard", "board game", "glider"
 ];
 
+const itemSpacing = {};
+const baseSpacing = 10;
+const spacingMultiplier = 5.5;
+
+things.forEach(item => {
+  const key = item.toLowerCase();
+  itemSpacing[key] = baseSpacing + key.length * spacingMultiplier;
+});
+
 function randomValue(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function drawDiagram() {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const canvas_height = 400;
-    const index = randomValue(0, yAxisLabels.length - 1);
-    const new_title = yAxisLabels[index].title;
-    document.getElementById("title").innerHTML = new_title;
+  const canvas_height = 400;
+  const index = randomValue(0, yAxisLabels.length - 1);
+  const new_title = yAxisLabels[index].title;
+  document.getElementById("title").innerHTML = new_title;
 
-    let dataQuantity = randomValue(3, 6);
-    let currLabel = new Set();
-    const data = [];
-    const labels = [];
+  let dataQuantity = randomValue(3, 5);
+  let currLabel = new Set();
+  const data = [];
+  const labels = [];
 
-    for (let k = 0; k < dataQuantity; k++) {
-        let new_index;
-        do {
-            new_index = randomValue(0, things.length - 1);
-        } while (currLabel.has(things[new_index]));
+  for (let k = 0; k < dataQuantity; k++) {
+    let new_index;
+    do {
+      new_index = randomValue(0, things.length - 1);
+    } while (currLabel.has(things[new_index]));
 
-        currLabel.add(things[new_index]);
-        data.push(randomValue(1, 300));
-        labels.push(things[new_index]);
-    }
+    currLabel.add(things[new_index]);
+    data.push(randomValue(1, 300));
+    labels.push(things[new_index]);
+  }
 
-    const barWidth = 50;
-    const barSpacing = 15;
+  const barWidth = 20;
+  let x = 30;
 
-    for (let i = 0; i < data.length; i++) {
-        const x = i * (barWidth + barSpacing) + 30;
-        const y = canvas_height - data[i];
-        const height = data[i];
+  for (let i = 0; i < data.length; i++) {
+    const label = labels[i];
+    const barHeight = data[i];
+    const y = canvas_height - barHeight;
 
-        ctx.fillStyle = "#3498db";
-        ctx.fillRect(x, y, barWidth, height);
+    ctx.fillStyle = "#3498db";
+    ctx.fillRect(x, y, barWidth, barHeight);
 
-        ctx.fillStyle = "#000";
-        ctx.font = "14px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText(labels[i], x + barWidth / 2, canvas_height + 20);
-        ctx.fillText(data[i], x + barWidth / 2, canvas_height + 40);
-    }
+    ctx.font = "14px Arial";
+    ctx.textAlign = "center";
 
-    ctx.strokeStyle = "#000";
-    ctx.beginPath();
-    ctx.moveTo(20, canvas_height);
-    ctx.lineTo(canvas.width, canvas_height);
-    ctx.moveTo(20, 0);
-    ctx.lineTo(20, canvas_height);
-    ctx.stroke();
+    const labelX = x + barWidth / 2;
+    ctx.fillStyle = "#000";
+    ctx.fillText(label, labelX, canvas_height + 20);
+    ctx.fillText(data[i].toString(), labelX, canvas_height + 40);
 
-    ctx.save();
-    ctx.translate(15, canvas_height / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.font = "16px Arial";
-    ctx.fillText(yAxisLabels[index].label, 0, 0);
-    ctx.restore();
+    const spacing = itemSpacing[label.toLowerCase()] || 20;
+    x += barWidth + spacing;
+  }
+
+  ctx.strokeStyle = "#000";
+  ctx.beginPath();
+  ctx.moveTo(20, canvas_height);
+  ctx.lineTo(canvas.width, canvas_height);
+  ctx.moveTo(20, 0);
+  ctx.lineTo(20, canvas_height);
+  ctx.stroke();
+
+  ctx.save();
+  ctx.translate(15, canvas_height / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#000";
+  ctx.fillText(yAxisLabels[index].label, 0, 0);
+  ctx.restore();
 }
 
 drawDiagram();
