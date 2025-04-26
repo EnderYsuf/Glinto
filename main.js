@@ -21,7 +21,7 @@ const sites = [
     { title: "Diagram", description: "Explore diagram to visualize your ideas clearly.", folder: "site19" },
     { title: "Tetris", description: "Play the classic game of Tetris and challenge your puzzle-solving skills.", folder: "site20" },
     { title: "?", description: "?", folder: "site21" },
-    { title: "Moogle 2.0", description: "A search engine that delivers the most accurate results. Only relevance and comfort.", folder: "site22" },
+    { title: "Glinto 2.0", description: "A search engine that delivers the most accurate results. Only relevance and comfort.", folder: "site22" },
     { title: "WakePedia", description: "An encyclopedia of things you never thought you'd need to know. Curated knowledge with a infinite quantity of topics.", folder: "site23" },
     { title: "ANN", description: "Stay informed with our news reports. The truth is our hobby.", folder: "site24" },
     { title: "Daily Weather Forecast", description: "Get a helpful forecast's of today’s weather—rain or shine, we’ve got you sort of covered.", folder: "site25" }
