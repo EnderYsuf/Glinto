@@ -115,7 +115,5 @@ document.addEventListener('DOMContentLoaded', function() {
             quotes.textContent = quote;
         }
     };
-
-    // Bind the searchStart function to the search icon
     searchIcon.addEventListener('click', searchStart);
 });

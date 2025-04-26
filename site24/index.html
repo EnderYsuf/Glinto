@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">ANN</div>
+    <nav>
+      <ul>
+        <li><p onclick="setCategory('world')">World</p></li>
+        <li><p onclick="setCategory('politics')">Politics</p></li>
+        <li><p onclick="setCategory('tech')">Tech</p></li>
+        <li><p onclick="setCategory('sports')">Sports</p></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="featured">
+      <h2>Featured News</h2>
+      <article id="feature">
+      </article>
+    </section>
+    <section class="news-grid" id="newsGrid">
+      <article class="news-card">
+        <div id="error" class="error-window">
+          <h2>Error Loading News</h2>
+          <p>Didn't found current category :(.</p>
+        </div>
+      </article>
+  </section>
+  </main>
+
+  <footer>
+    <p>Do not believe to them!</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

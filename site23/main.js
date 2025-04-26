@@ -365,42 +365,30 @@ function pageGenerator(topic, quantity) {
     document.getElementById("pageTitle").innerText = topic;
     const content = document.getElementById("content");
     content.style.display = "block";
-    content.innerHTML = ""; // Clear previous content
+    content.innerHTML = "";
 
     let rng = createSeededRNG(simpleHash(topic));
-
-    // Get all category names from wikiSentences
     const categories = Object.keys(wikiSentences);  
-
-    let usedCategories = new Set();  // Track used categories
-
-    // Track used sentences for each category
+    let usedCategories = new Set();
     let usedSentences = {};
 
     for (let i = 0; i < quantity; i++) {
-        // Filter categories to exclude those already used
         const availableCategories = categories.filter(category => !usedCategories.has(category));
 
-        // If no categories are available, stop generating more sectors
         if (availableCategories.length === 0) {
             console.warn("No more unique categories available!");
             break;
         }
 
-        // Randomly pick a category from the available ones
         const categoryIndex = randomIndex(rng, availableCategories.length);
         const categoryKey = availableCategories[categoryIndex];
-
-        // Mark the category as used
         usedCategories.add(categoryKey);
 
-        // Check if the category has content
         if (!wikiSentences[categoryKey] || wikiSentences[categoryKey].length === 0) {
             console.warn(`No content found for category: ${categoryKey}`);
-            continue; // Skip this category if no content exists
+            continue;
         }
 
-        // Initialize used sentences for this category if not already done
         if (!usedSentences[categoryKey]) {
             usedSentences[categoryKey] = new Set();
         }
@@ -408,28 +396,20 @@ function pageGenerator(topic, quantity) {
         let sectorContent = [];
         let sectorLength = randomIndex(rng, wikiSentences[categoryKey].length);
 
-        // Generate content for the sector
         for (let j = 0; j < sectorLength; j++) {
-            // Filter out used sentences for the current category
             const availableSentences = wikiSentences[categoryKey].filter((sentence, index) => !usedSentences[categoryKey].has(index));
 
-            // If there are no available sentences left, skip generating this sector
             if (availableSentences.length === 0) {
                 console.warn(`No more available sentences in category: ${categoryKey}`);
                 break;
             }
 
-            // Randomly pick a sentence from the available ones
             const sentenceIndex = randomIndex(rng, availableSentences.length);
             const sentence = availableSentences[sentenceIndex];
-
-            // Mark the sentence as used
             usedSentences[categoryKey].add(wikiSentences[categoryKey].indexOf(sentence));
-
             sectorContent.push(sentence);
         }
 
-        // Create the sector with the selected category and content
         generateSector(content, `sector-${i + 1}`, categoryKey, sectorContent);
     }
 }

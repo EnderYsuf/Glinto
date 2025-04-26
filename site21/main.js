@@ -48,7 +48,47 @@ const messages = [
     "A stranger waved at you from a distance. You swear it was you.",
     "The TV shows a channel that shouldn’t exist.",
     "You answered the phone, but no one was there. Just breathing.",
-    "The old photograph on the wall now has one more person in it."
+    "The old photograph on the wall now has one more person in it.",
+    "You saw yourself outside. But you're inside.",
+    "Your favorite shirt was folded neatly on the floor. You didn’t fold it.",
+    "There's a new contact in your phone named 'Me'.",
+    "The basement light turns on whenever you mention it.",
+    "You woke up with your shoes on, covered in mud.",
+    "You keep dreaming of the same unfamiliar face.",
+    "There’s a sound coming from under the bed. It’s breathing.",
+    "You left the window closed. Now it's open—and something is inside.",
+    "A voice called your name from inside the mirror.",
+    "The painting blinked.",
+    "You found a photo of yourself sleeping. You live alone.",
+    "There’s a tapping on the wall. It’s following you.",
+    "The ceiling fan turns even when it's unplugged.",
+    "You looked outside. The moon had eyes.",
+    "You opened the closet. Something exhaled.",
+    "You hear footsteps behind you, matching your pace.",
+    "You woke up in the hallway with the front door wide open.",
+    "Something is knocking from inside the wardrobe.",
+    "The nightlight turns off when you try to look at it.",
+    "The book on your shelf has a new chapter you didn’t write.",
+    "You were dreaming. Or so you thought. The scratches are real.",
+    "You saw yourself sleeping, from the corner of the room.",
+    "Your voicemail has a message from your own number.",
+    "The family photo has someone in it you don’t know.",
+    "You tried to scream in your sleep. Something held your mouth shut.",
+    "The calendar flipped itself to a date that doesn’t exist.",
+    "The mirror fogged up—and a handprint appeared from the inside.",
+    "The footsteps upstairs stop when you listen.",
+    "You felt a hand brush your shoulder, but no one was there.",
+    "You keep waking up with the door slightly more open each night.",
+    "The music box plays at midnight, on its own.",
+    "You saw someone under the bed. They smiled.",
+    "You dropped your phone. When you picked it up, the wallpaper had changed.",
+    "You caught your reflection watching you.",
+    "You said goodbye to your friend—but they never visited.",
+    "Your toothbrush was wet. You hadn’t used it yet.",
+    "The answering machine has messages from the past. Before you were born.",
+    "You saw writing on the wall. It disappeared when you turned the light on.",
+    "The doorknob turned slowly, but no one was there.",
+    "You turned off the light. The silhouette stayed."
 ];
 
 const canvas = document.createElement("canvas");
@@ -67,48 +107,83 @@ function drawStrangeSymbols(text) {
     ctx.lineWidth = 2;
 
     const startX = 20;
-    const startY = canvas.height / 4; // Start higher to allow multiple lines
+    const startY = canvas.height / 4;
     let x = startX;
     let y = startY;
-    const size = 30;  // Base size for symbols
-    const spacing = 40;  // Horizontal spacing
-    const lineHeight = 50;  // Vertical spacing
-
+    const size = 30; 
+    const spacing = 40; 
+    const lineHeight = 50;
+    let letters = getLetters(text);
+    letters.forEach(letter => {
+    drawSymbol(letter, x, y);
+        x += spacing;
+        if (x > canvas.width - spacing) {
+            x = startX;
+            y += lineHeight;
+        }
+    });
     function drawSymbol(letter, x, y) {
-        ctx.beginPath();
-        let seed = letter.charCodeAt(0);
-        let symbolSize = size + (seed % 10); 
+    ctx.save();
 
-        for (let i = 0; i < 3; i++) {
-            let offsetX = (Math.sin(seed + i) * symbolSize) / 2;
-            let offsetY = (Math.cos(seed + i) * symbolSize) / 2;
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + offsetX, y + offsetY);
-        }
+    let seed = letter.charCodeAt(0);
+    let symbolSize = size + (seed % 15);
+    let angle = (seed % 360) * Math.PI / 180;
+    ctx.translate(x, y);
+    ctx.rotate(angle);
 
-        for (let i = 0; i < 2; i++) {
-            let arcX = x + (Math.sin(seed + i) * symbolSize) / 3;
-            let arcY = y + (Math.cos(seed + i) * symbolSize) / 3;
-            ctx.arc(arcX, arcY, symbolSize / 4, 0, Math.PI * 2);
-        }
+    ctx.beginPath();
 
-        ctx.stroke();
+    let type = seed % 5;
+    
+    switch (type) {
+        case 0: // Zigzag
+            for (let i = 0; i < 3; i++) {
+                let dx = (i % 2 === 0 ? 1 : -1) * (symbolSize / 2);
+                let dy = (i + 1) * 5;
+                ctx.lineTo(dx, dy);
+            }
+            break;
+        case 1: // Triangular lines
+            for (let i = 0; i < 3; i++) {
+                let offsetX = Math.sin(seed + i) * (symbolSize / 2);
+                let offsetY = Math.cos(seed + i) * (symbolSize / 2);
+                ctx.moveTo(0, 0);
+                ctx.lineTo(offsetX, offsetY);
+            }
+            break;
+        case 2: // Arcs
+            for (let i = 0; i < 2; i++) {
+                let arcX = Math.sin(seed + i) * (symbolSize / 3);
+                let arcY = Math.cos(seed + i) * (symbolSize / 3);
+                ctx.moveTo(arcX + symbolSize / 4, arcY);
+                ctx.arc(arcX, arcY, symbolSize / 4, 0, Math.PI * 2);
+            }
+            break;
+        case 3: // Crossed lines
+            ctx.moveTo(-symbolSize / 2, -symbolSize / 2);
+            ctx.lineTo(symbolSize / 2, symbolSize / 2);
+            ctx.moveTo(symbolSize / 2, -symbolSize / 2);
+            ctx.lineTo(-symbolSize / 2, symbolSize / 2);
+            break;
+        case 4: // Square and dot
+            ctx.strokeRect(-symbolSize / 4, -symbolSize / 4, symbolSize / 2, symbolSize / 2);
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, 2 + (seed % 4), 0, Math.PI * 2);
+            break;
     }
 
-    for (let i = 0; i < text.length; i++) {
-        if (x + spacing > canvas.width - 20) {  
-            x = startX;  
-            y += lineHeight;  
-        }
-
-        drawSymbol(text[i], x, y);
-        x += spacing; 
+    ctx.stroke();
+    ctx.restore();
     }
 }
 
 drawStrangeSymbols("Hello world!");
 function randomValue(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getLetters(message) {
+  return message.split('');
 }
 
 window.onload = function() {
