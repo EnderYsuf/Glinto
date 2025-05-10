@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunar Horoscope</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Lunar Horoscope</h1>
+    <p>Find out what the moon has written in the stars for you.</p>
+  </header>
+
+  <main>
+    <section id="sign-selector">
+      <label for="zodiac-sign">Choose your zodiac sign:</label>
+      <select id="sign">
+        <option value="">-- Select --</option>
+        <option value="aries">Aries</option>
+        <option value="taurus">Taurus</option>
+        <option value="gemini">Gemini</option>
+        <option value="cancer">Cancer</option>
+        <option value="leo">Leo</option>
+        <option value="virgo">Virgo</option>
+        <option value="libra">Libra</option>
+        <option value="scorpio">Scorpio</option>
+        <option value="sagittarius">Sagittarius</option>
+        <option value="capricorn">Capricorn</option>
+        <option value="aquarius">Aquarius</option>
+        <option value="pisces">Pisces</option>
+      </select>
+      <button onclick="generateForecast()">Reveal</button>
+    </section>
+
+    <section id="horoscope-result">
+      <h2>Your Horoscope</h2>
+      <p id="forecast">Please select your sign to see today's forecast.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Powered by the power of the Moon!!!</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #1e1e3f, #2c2c54);
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+textarea {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  resize: vertical;
+  font-size: 1rem;
+  background-color: #444;
+  color: #fff;
+  min-height: 150px;
+}
+
+textarea[readonly] {
+  background-color: #333;
+}
+
+@media (min-width: 768px) {
+  .input-group {
+    flex-direction: row;
+  }
+  textarea {
+    min-height: 200px;
+  }
+}
